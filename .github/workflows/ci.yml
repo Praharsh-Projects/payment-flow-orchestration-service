@@ -1,0 +1,59 @@
+name: Full-stack payment quality gates
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+          cache-dependency-path: backend/*.gradle.kts
+      - name: Test backend and produce coverage
+        run: ./backend/gradlew -p backend clean test jacocoTestReport --no-daemon
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install pinned dependencies
+        run: npm ci
+        working-directory: frontend
+      - name: Lint and type check
+        run: npm run lint && npm run typecheck
+        working-directory: frontend
+      - name: Test with coverage
+        run: npm run test:coverage
+        working-directory: frontend
+      - name: Build production console
+        run: npm run build
+        working-directory: frontend
+      - name: Audit dependencies
+        run: npm audit --audit-level=moderate
+        working-directory: frontend
+
+  containers:
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Validate Compose topology
+        run: docker compose config --quiet
+      - name: Build backend image
+        run: docker build -t payment-flow-service:ci ./backend
+      - name: Build frontend image
+        run: docker build -t payment-operations-console:ci ./frontend
