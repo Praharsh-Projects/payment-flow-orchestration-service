@@ -83,14 +83,16 @@ describe("PaymentConsole", () => {
   });
 
   it("creates a payment with an idempotency key", async () => {
-    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async (_input, init) => {
       if (init?.method === "POST") return jsonResponse(detail, 201);
       return jsonResponse(init ? [] : [summary]);
     });
 
     render(<PaymentConsole />);
     await waitFor(() => expect(fetchMock).toHaveBeenCalled());
-    fireEvent.submit(screen.getByRole("button", { name: "Create payment instruction" }).closest("form")!);
+    const form = screen.getByRole("button", { name: "Create payment instruction" }).closest("form");
+    expect(form).not.toBeNull();
+    if (form) fireEvent.submit(form);
 
     await waitFor(() => {
       const call = fetchMock.mock.calls.find(([, init]) => init?.method === "POST");
