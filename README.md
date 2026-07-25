@@ -110,14 +110,14 @@ Run the same local checks used during implementation:
 make quality
 ```
 
-Verified locally on 21 July 2026:
+Verified locally on 26 July 2026:
 
 - 22 backend tests passed.
 - Backend JaCoCo line coverage: 88.19%; instruction coverage: 87.68%.
 - 10 frontend tests passed.
 - Frontend statement coverage: 84.61%; line coverage: 90.10%.
-- ESLint, TypeScript checking and the Next.js production build passed.
-- `npm audit --audit-level=moderate` reported 0 vulnerabilities after pinning the patched PostCSS release.
+- Biome lint, TypeScript checking and the Next.js production build passed.
+- `npm audit --audit-level=moderate` reported 0 vulnerabilities after updating the patched Next.js 15 release and transitive image, CSS, and glob-processing dependencies.
 
 The CI workflow repeats backend tests, frontend checks, coverage, production build, dependency audit, Compose validation and both container builds.
 

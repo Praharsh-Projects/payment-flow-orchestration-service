@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { type FormEvent, useCallback, useEffect, useState } from "react";
 import {
   formatMoney,
   formatTimestamp,
@@ -186,7 +186,7 @@ export function PaymentConsole() {
                 <input name="creditorAccountToken" required defaultValue="acct_creditor_01" className="field font-mono text-sm" />
               </label>
             </div>
-            <button disabled={busy} className="mt-5 w-full rounded-xl bg-signal px-4 py-3 font-semibold text-white transition hover:bg-signal/90 disabled:cursor-wait disabled:opacity-55">
+            <button type="submit" disabled={busy} className="mt-5 w-full rounded-xl bg-signal px-4 py-3 font-semibold text-white transition hover:bg-signal/90 disabled:cursor-wait disabled:opacity-55">
               {busy ? "Applying change..." : "Create payment instruction"}
             </button>
           </form>
@@ -198,7 +198,7 @@ export function PaymentConsole() {
                 {payments.length} visible
               </span>
             </div>
-            <div className="mt-4 flex flex-wrap gap-2" aria-label="Payment status filters">
+            <fieldset className="mt-4 flex flex-wrap gap-2" aria-label="Payment status filters">
               {filters.map((item) => (
                 <button
                   key={item.value}
@@ -211,7 +211,7 @@ export function PaymentConsole() {
                   {item.label}
                 </button>
               ))}
-            </div>
+            </fieldset>
             <div className="mt-5 space-y-3">
               {payments.length === 0 ? (
                 <p className="rounded-xl border border-dashed border-ink/20 p-5 text-sm text-ink/55">

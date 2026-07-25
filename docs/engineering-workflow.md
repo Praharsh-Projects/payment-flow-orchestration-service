@@ -8,7 +8,7 @@ AI-assisted coding was used for bounded implementation tasks such as initial fil
 4. Exercise API behavior through a real random-port Spring Boot application and database migration.
 5. Test idempotency, invalid transitions, stale versions, token validation, API authentication and Kafka publishing behavior.
 6. Run frontend linting, strict TypeScript checks, component tests, coverage and a production build.
-7. Audit dependencies and pin the patched PostCSS version when the first audit identified a moderate advisory.
+7. Audit dependencies and pin patched releases when advisories appear. The July 2026 refresh updated Next.js and transitive image, CSS, and glob-processing dependencies, and replaced the vulnerable ESLint dependency chain with Biome while retaining a dedicated lint gate.
 8. Review architecture, limitations and CV wording against the implemented code.
 
 AI output was treated as untrusted until it compiled and passed the relevant checks. No productivity percentage, autonomous deployment or production impact is claimed.

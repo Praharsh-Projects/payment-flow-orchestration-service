@@ -6,18 +6,18 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "biome lint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "next": "15.5.20",
+    "next": "15.5.22",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "3.3.1",
+    "@biomejs/biome": "2.5.5",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
@@ -27,10 +27,8 @@
     "@vitejs/plugin-react": "5.1.1",
     "@vitest/coverage-v8": "4.1.10",
     "autoprefixer": "10.4.22",
-    "eslint": "9.39.1",
-    "eslint-config-next": "15.5.20",
     "jsdom": "27.2.0",
-    "postcss": "8.5.21",
+    "postcss": "8.5.23",
     "tailwindcss": "3.4.18",
     "typescript": "5.9.3",
     "vitest": "4.1.10"
@@ -39,7 +37,9 @@
     "node": ">=20.19.0"
   },
   "overrides": {
-    "postcss": "8.5.21"
+    "brace-expansion": "5.0.8",
+    "postcss": "8.5.23",
+    "sharp": "0.35.3"
   },
   "packageManager": "npm@11.3.0"
 }
